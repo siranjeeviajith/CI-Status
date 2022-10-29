@@ -9688,10 +9688,11 @@ const core = __nccwpck_require__(7232);
 const github = __nccwpck_require__(6175);
 
 /*Inputs*/
-const token = core.getInput("token");
-const owner = core.getInput("repo");
-const workflow_id = core.getInput("workflow_id");
-const branch = core.getInput("branch");
+const token = core.getInput('token');
+const owner = core.getInput('owner');
+const repo = core.getInput('repo');
+const workflow_id = core.getInput('workflow_id');
+const branch = core.getInput('branch');
 
 const fetchWorkFlow = () => {
   return github.getOctokit(token).rest.actions.listWorkflowRuns({
