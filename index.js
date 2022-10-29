@@ -10,7 +10,6 @@ const branch = core.getInput("branch");
 const fetchWorkFlow = () => {
   return github.getOctokit(token).rest.actions.listWorkflowRuns({
     owner,
-    repo,
     workflow_id,
     branch,
   });
