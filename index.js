@@ -2,14 +2,16 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 /*Inputs*/
-const token = core.getInput("token");
-const owner = core.getInput("repo");
-const workflow_id = core.getInput("workflow_id");
-const branch = core.getInput("branch");
+const token = core.getInput('token');
+const owner = core.getInput('owner');
+const repo = core.getInput('repo')
+const workflow_id = core.getInput('workflow_id');
+const branch = core.getInput('branch');
 
 const fetchWorkFlow = () => {
   return github.getOctokit(token).rest.actions.listWorkflowRuns({
     owner,
+    repo,
     workflow_id,
     branch,
   });
