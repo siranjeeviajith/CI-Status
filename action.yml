@@ -1,13 +1,17 @@
-name: 'CI Status Validation'
-description: 'Validate CI status workflow file'
+name: "CI Status Validation"
+description: "Validate CI status workflow file"
 inputs:
-  payload:  # id of input
-    description: 'Who to greet'
+  token:
     required: true
-    default: 'World'
+  repo:
+    required: true
+  owner:
+    required: true
+  branch:
+    required: true
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  result:
+    description: Status of CI
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
