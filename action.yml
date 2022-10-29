@@ -9,6 +9,8 @@ inputs:
     required: true
   branch:
     required: true
+  workflow_id:
+    required: true
 outputs:
   result:
     description: Status of CI
