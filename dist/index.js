@@ -9687,18 +9687,47 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(7232);
 const github = __nccwpck_require__(6175);
 
-try {
-  // `payload` input defined in action metadata file
-  const payload = core.getInput('payload');
-  console.log(`Hello ${payload}!`);
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const jsonPayload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${jsonPayload}`);
-} catch (error) {
-  core.setFailed(error.message);
-}
+/*Inputs*/
+const token = core.getInput("token");
+const owner = core.getInput("repo");
+const workflow_id = core.getInput("workflow_id");
+const branch = core.getInput("branch");
+
+const fetchWorkFlow = () => {
+  return github.getOctokit(token).rest.actions.listWorkflowRuns({
+    owner,
+    repo,
+    workflow_id,
+    branch,
+  });
+};
+const run = async () => {
+  try {
+    const time = new Date().toTimeString();
+    core.setOutput("time", time);
+
+    let workflow;
+    let status, conclusion;
+    do {
+      const { data } = await fetchWorkFlow();
+      workflow = data?.workflow_runs?.[0];
+      status = workflow?.status;
+      conclusion = workflow?.conclusion;
+      console.log(`Workflow status: ${status}`);
+      setTimeout(() => {}, 1000 * 1);
+    } while (status !== "completed");
+    console.log(`Workflow conclusion: ${conclusion}`);
+    if (conclusion !== "success")
+      core.setFailed(
+        `Workflow run failed : status${status} conclusion:${conclusion}`
+      );
+    core.setOutput('result', conclusion);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+};
+run();
+
 })();
 
 module.exports = __webpack_exports__;
