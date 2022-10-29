@@ -9715,7 +9715,7 @@ const run = async () => {
       status = workflow?.status;
       conclusion = workflow?.conclusion;
       console.log(`Workflow status: ${status}`);
-      setTimeout(() => {}, 1000 * 1);
+      setTimeout(() => {}, 1000 * 60 * 1);
     } while (status !== "completed");
     console.log(`Workflow conclusion: ${conclusion}`);
     if (conclusion !== "success")
