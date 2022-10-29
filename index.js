@@ -4,7 +4,7 @@ const github = require("@actions/github");
 /*Inputs*/
 const token = core.getInput('token');
 const owner = core.getInput('owner');
-const repo = core.getInput('repo')
+const repo = core.getInput('repo');
 const workflow_id = core.getInput('workflow_id');
 const branch = core.getInput('branch');
 
