@@ -13,12 +13,13 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Hello world action step
-        uses: ./ # Uses an action in the root directory
-        id: hello
+      - name: Validate CI status
+        uses: siranjeeviajith/CI-Status@v2
         with:
-          who-to-greet: 'Mona the Octocat'
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+          token: '{token}'
+          branch: ${{env.HEAD_BRANCH}}
+          workflow_id: '{workflow_id}'
+          owner: '{owner}'
+          repo: '{repo}'
+    
 ```
